@@ -6,7 +6,8 @@ import { store } from "./app/store";
 import App from "./App";
 import Login from "./components/login/Login";
 import Profile from "./components/profile/Profile";
-import "./index.css";
+import Header from "./components/common/Header";
+import Footer from "./components/common/Footer";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -15,11 +16,13 @@ root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<HashRouter>
+				<Header />
 				<Routes>
 					<Route path="/" element={<App />} />
 					<Route path="/login" element={<Login />}/>
 					<Route path="/profile" element={<Profile />}/>
 				</Routes>
+				<Footer />
 			</HashRouter>
 		</Provider>
 	</React.StrictMode>
