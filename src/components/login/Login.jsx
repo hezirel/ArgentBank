@@ -1,6 +1,18 @@
 import React from "react";
+import { useState } from "react";
+
 
 const Login = () => {
+
+	const [token, setToken] = useState("");
+	setToken ? true : false;
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(token, username, password);
+	};
+
 	return (
 		<>
 			<main className="main bg-dark">
@@ -10,11 +22,11 @@ const Login = () => {
 					<form>
 						<div className="input-wrapper">
 							<label htmlFor="username">Username</label>
-							<input type="text" id="username" />
+							<input type="text" id="username" onChange={e => setUsername(e.target.value)}/>
 						</div>
 						<div className="input-wrapper">
 							<label htmlFor="password">Password</label>
-							<input type="password" id="password" />
+							<input type="password" id="password" onChange={e => setPassword(e.target.value)}/>
 						</div>
 						<div className="input-remember">
 							<input type="checkbox" id="remember-me" />
@@ -22,8 +34,7 @@ const Login = () => {
 								Remember me
 							</label>
 						</div>
-						<a href="./user.html" className="sign-in-button">Sign In</a>
-						<button className="sign-in-button">Sign In</button>
+						<button className="sign-in-button" type="submit" onSubmit={handleSubmit}>Sign In</button>
 					</form>
 				</section>
 			</main>
