@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { PropTypes } from "prop-types";
+import actions from "../../app/actions";
+import { useDispatch } from "react-redux";
 
-const loginReq = async ({ username, password}) => {
+const tokenRequest = async ({ username, password}) => {
 	const res = await fetch("http://localhost:3001/api/v1/user/login", {
 		method: "POST",
 		headers: {
@@ -11,18 +13,19 @@ const loginReq = async ({ username, password}) => {
 		body: JSON.stringify({ email: username, password }),
 	});
 	const data = await res.json();
-	return data.body;
+	return data.body.token;
 };
 
 
-const Login = ({ setToken }) => {
+const Login = () => {
 
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("tony@stark.com");
+	const [password, setPassword] = useState("password123");
+	const dispatch = useDispatch();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setToken(await loginReq({ username, password}));
+		dispatch({type: actions.LOGIN, payload: await tokenRequest({ username, password })});
 	};
 
 	return (
@@ -34,11 +37,11 @@ const Login = ({ setToken }) => {
 					<form onSubmit={handleSubmit}>
 						<div className="input-wrapper">
 							<label htmlFor="username">Username</label>
-							<input type="text" id="username" onChange={e => setUsername(e.target.value)}/>
+							<input type="text" id="username" defaultValue="tony@stark.com" onChange={e => setUsername(e.target.value)}/>
 						</div>
 						<div className="input-wrapper">
 							<label htmlFor="password">Password</label>
-							<input type="password" id="password" onChange={e => setPassword(e.target.value)}/>
+							<input type="password" id="password" defaultValue="password123" onChange={e => setPassword(e.target.value)}/>
 						</div>
 						<div className="input-remember">
 							<input type="checkbox" id="remember-me" />

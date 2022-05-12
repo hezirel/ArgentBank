@@ -1,17 +1,73 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const Profile = ({ payload = {} }) => {
-	console.log(payload);
+const Profile = () => {
+
+	const token = useSelector(state => state.token);
+	const [user, setUser] = React.useState({
+	});
+
+	const profileRequest = async (jwt) => {
+		const res = await fetch("http://localhost:3001/api/v1/user/profile", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${jwt}`
+			},
+		});
+		const data = await res.json();
+		setUser(data.body);
+	};
+
+	useEffect(() => {
+		profileRequest(token);
+	}, [token]);
+
 	return (
-		<>
-			<span>Profile</span>
-		</>
+		<main className="main bg-dark">
+			<div className="header">
+				<h1>Welcome back<br />{`${user?.firstName} ${user?.lastName}`}!</h1>
+				<button className="edit-button">Edit Name</button>
+			</div>
+			<h2 className="sr-only">Accounts</h2>
+			<section className="account">
+				<div className="account-content-wrapper">
+					<h3 className="account-title">Argent Bank Checking (x8349)</h3>
+					<p className="account-amount">$2,082.79</p>
+					<p className="account-amount-description">Available Balance</p>
+				</div>
+				<div className="account-content-wrapper cta">
+					<button className="transaction-button">View transactions</button>
+				</div>
+			</section>
+			<section className="account">
+				<div className="account-content-wrapper">
+					<h3 className="account-title">Argent Bank Savings (x6712)</h3>
+					<p className="account-amount">$10,928.42</p>
+					<p className="account-amount-description">Available Balance</p>
+				</div>
+				<div className="account-content-wrapper cta">
+					<button className="transaction-button">View transactions</button>
+				</div>
+			</section>
+			<section className="account">
+				<div className="account-content-wrapper">
+					<h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
+					<p className="account-amount">$184.30</p>
+					<p className="account-amount-description">Current Balance</p>
+				</div>
+				<div className="account-content-wrapper cta">
+					<button className="transaction-button">View transactions</button>
+				</div>
+			</section>
+		</main>
+
 	);
 };
 
 Profile.propTypes = {
-	payload: PropTypes.object
+	data: PropTypes.any
 };
 
 export default Profile;
