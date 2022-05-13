@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from "./components/login/Login";
 import Profile from "./components/profile/Profile";
@@ -10,20 +10,18 @@ import Home from "./components/common/Home";
 
 const App = () => {
 
-	const token = useSelector(state => state.token);
+	const auth = useSelector(state => state.auth);
+	auth ? true:false;
 
 	return (
 		<>
 			<HashRouter>
 				<Header />
 				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/login" element={
-						token ? <Navigate replace to="/profile"/> : <Login />
-					} />
-					<Route path="/profile" element={
-						token ? <Profile /> : <Navigate replace to="/login" />
-					}/>
+					<Route index path="/" element={<Home />} />
+					<Route path="login" element={<Login />} />
+					<Route path="profile" element={<Profile />} />
+					<Route path="*"  element={<Home />} />
 				</Routes>
 				<Footer />
 			</HashRouter>
