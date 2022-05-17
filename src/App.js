@@ -23,7 +23,6 @@ const App = () => {
 
 	const auth = useSelector(state => state.auth);
 	auth ? true:false;
-	//#:Provider store
 
 	return (
 		<>
