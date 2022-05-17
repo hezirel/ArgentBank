@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import actions from "../../store/actions";
+import actions from "../../redux/store/actions";
 
 const Header = () => {
 

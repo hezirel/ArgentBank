@@ -1,8 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { loginReducer } from "./loginReducer";
+
+import { 
+	loginReducer as login,
+} from "./loginReducer";
 
 const rootReducer = combineReducers({
-	login: loginReducer
+	login
 });
 
 

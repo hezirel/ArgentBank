@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { loginAttempt } from "../../store/actionsCreator";
+import { sendLogin } from "../../redux/store/actionsCreator";
 import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
@@ -14,7 +14,7 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		dispatch(loginAttempt(username, password));
+		dispatch(sendLogin(username, password));
 	};
 
 	return (auth && <Navigate replace to="/profile" />) || (

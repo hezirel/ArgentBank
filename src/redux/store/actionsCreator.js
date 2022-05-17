@@ -1,6 +1,6 @@
 import actions from "./actions";
 
-const loginAttempt = (username, password) => {
+const sendLogin = (username, password) => {
 	return {
 		type: actions.LOGIN,
 		payload: {
@@ -11,4 +11,4 @@ const loginAttempt = (username, password) => {
 };
 
 
-export { loginAttempt };
+export { sendLogin };
