@@ -10,7 +10,7 @@ import {
 	Provider,
 	useSelector
 } from "react-redux";
-import store from "./store/store";
+import { store } from "./store/store";
 
 import Login from "./components/login/Login";
 import Profile from "./components/profile/Profile";

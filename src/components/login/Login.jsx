@@ -1,22 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import actions from "../../store/actions";
+import { loginAttempt } from "../../store/actionsCreator";
 import { useDispatch, useSelector } from "react-redux";
-
-const tokenRequest = async ({ username, password}) => {
-	const res = await fetch("http://192.168.0.52:3001/api/v1/user/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ email: username, password }),
-	});
-	const data = await res.json();
-	return data.body.token;
-};
-
 
 const Login = () => {
 
@@ -24,12 +11,10 @@ const Login = () => {
 	const [username, setUsername] = useState("tony@stark.com");
 	const [password, setPassword] = useState("password123");
 	const dispatch = useDispatch();
-	const nav = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		dispatch({type: actions.LOGIN, payload: await tokenRequest({ username, password })});
-		nav("/profile", { replace: true });
+		dispatch(loginAttempt(username, password));
 	};
 
 	return (auth && <Navigate replace to="/profile" />) || (
@@ -52,7 +37,7 @@ const Login = () => {
 									Remember me
 						</label>
 					</div>
-					<button className="sign-in-button" type="submit">Sign In</button>
+					<button className="sign-in-button" type="submit" >Sign In</button>
 				</form>
 			</section>
 		</main>

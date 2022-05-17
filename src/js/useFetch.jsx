@@ -15,15 +15,15 @@ const useFetch = ({ uri, body}) => {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"Authorization": `Bearer ${body}`
 			},
+			body: body
 		})
 			.then(async res => {
 				if(!res.ok) {
 					setError(res.statusText);
 					setLoading(false);
 				} else {
-					res.json().then(data => setData(data.data))
+					res.json().then(data => setData(data.token))
 						.then(() => setLoading(false));
 				}
 			})
