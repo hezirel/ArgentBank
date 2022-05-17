@@ -2,11 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import actions from "../../app/actions";
+import actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const tokenRequest = async ({ username, password}) => {
-	const res = await fetch("http://localhost:3001/api/v1/user/login", {
+	const res = await fetch("http://192.168.0.52:3001/api/v1/user/login", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

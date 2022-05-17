@@ -9,7 +9,7 @@ const Profile = () => {
 	});
 
 	const profileRequest = async (jwt) => {
-		const res = await fetch("http://localhost:3001/api/v1/user/profile", {
+		const res = await fetch("http://192.168.0.52:3001/api/v1/user/profile", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
