@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { sendLogin } from "../../redux/store/actionsCreator";
+import { sendCreds } from "../../redux/features/login/loginSlice";
 
 const Login = () => {
 
@@ -12,7 +12,7 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const payload = e.target.elements;
-		dispatch(sendLogin({
+		dispatch(sendCreds({
 			email: payload.email.value,
 			password: payload.password.value
 		}));

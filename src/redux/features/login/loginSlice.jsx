@@ -13,7 +13,7 @@ const loginSlice = createSlice({
 	reducers: {
 		sendCreds: (state, { payload }) => {
 			state.auth = true;
-			console.log(state, payload);
+			console.log(payload);
 		}
 	}
 });
