@@ -11,19 +11,13 @@ const useFetch = ({ uri, body}) => {
 
 	useEffect(() => {
 
-		fetch(`${URL}${uri}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: body
-		})
+		fetch(`${URL}${uri}`, body)
 			.then(async res => {
 				if(!res.ok) {
 					setError(res.statusText);
 					setLoading(false);
 				} else {
-					res.json().then(data => setData(data.token))
+					res.json().then(data => setData(data))
 						.then(() => setLoading(false));
 				}
 			})

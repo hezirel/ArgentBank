@@ -1,20 +1,21 @@
 import React from "react";
-import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 import { sendLogin } from "../../redux/store/actionsCreator";
-import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
 
 	const auth = useSelector(state => state.auth);
-	const [username, setUsername] = useState("tony@stark.com");
-	const [password, setPassword] = useState("password123");
 	const dispatch = useDispatch();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		dispatch(sendLogin(username, password));
+		const payload = e.target.elements;
+		dispatch(sendLogin({
+			email: payload.email.value,
+			password: payload.password.value
+		}));
 	};
 
 	return (auth && <Navigate replace to="/profile" />) || (
@@ -24,15 +25,15 @@ const Login = () => {
 				<h1>Sign In</h1>
 				<form onSubmit={handleSubmit}>
 					<div className="input-wrapper">
-						<label htmlFor="username">Username</label>
-						<input type="text" id="username" defaultValue="tony@stark.com" onChange={e => setUsername(e.target.value)}/>
+						<label htmlFor="email">Email</label>
+						<input name="email" type="text" id="email" defaultValue="tony@stark.com" required/>
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label>
-						<input type="password" id="password" defaultValue="password123" onChange={e => setPassword(e.target.value)}/>
+						<input name="password" type="password" id="password" defaultValue="password123" required/>
 					</div>
 					<div className="input-remember">
-						<input type="checkbox" id="remember-me" />
+						<input type="checkbox" name="cookie" id="remember-me" />
 						<label htmlFor="remember-me">
 									Remember me
 						</label>
