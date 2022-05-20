@@ -1,18 +1,13 @@
 import {
-	createApi,
+	createSlice
 } from "@reduxjs/toolkit";
-
-import { 
-	fetchBaseQuery
-} from "@reduxjs/toolkit/dist/query";
 
 const initialState = {
 	auth: false,
 	token: false
 };
 
-const loginSlice = createApi({
-	baseQuery: fetchBaseQuery({ baseUrl: URL}),
+const loginSlice = createSlice({
 	name: "login",
 	initialState,
 	reducers: {
@@ -23,6 +18,9 @@ const loginSlice = createApi({
 		requestProfile: (state, { payload }) => {
 			state.token = payload;
 		}
+	},
+	extraReducers: {
+
 	}
 });
 

@@ -7,19 +7,19 @@ import {
 } from "react-redux";
 
 import {
-	useGetAuthQuery,
+	useGetAuthMutation,
 } from "../../redux/services/userApi";
 
 const Login = () => {
 
 	const auth = useSelector(state => state.auth);
-	const [tryAuth, result] = useGetAuthQuery();
+	const [loginAttempt, res] = useGetAuthMutation();
 
 	const handleSubmit = async (e) => {
 		//#:Refactor simpler form data translation
 		e.preventDefault();
 		const payload = e.target.elements;
-		await useGetAuthQuery({
+		await loginAttempt({
 			email: payload.email.value,
 			password: payload.password.value
 		});

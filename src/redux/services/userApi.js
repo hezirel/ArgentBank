@@ -10,21 +10,21 @@ export const api = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: URL}),
 	endpoints: (builder) => ({
 
-		getAuth: builder.query({
-			query: (payload) => {
-				
-				return ({
-					url: "login",
-					method: "POST",
-					body: payload
-				});
-			}
+		getAuth: builder.mutation({
+			query: (payload) => ({
+				url: "login",
+				method: "POST",
+				body: payload
+			})
 		}),
 	})
 
 });
 
-export const { getAuth } = api.endpoints;
+export const {
+	getAuth,
+} = api.endpoints;
+
 export const { 
-	useGetAuthQuery,
+	useGetAuthMutation,
 } = api;
