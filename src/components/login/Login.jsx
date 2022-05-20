@@ -10,6 +10,7 @@ const Login = () => {
 	const dispatch = useDispatch();
 
 	const handleSubmit = async (e) => {
+		//#:Refactor simpler form data translation
 		e.preventDefault();
 		const payload = e.target.elements;
 		dispatch(sendCreds({
