@@ -2,30 +2,9 @@ import {
 	createApi,
 } from "@reduxjs/toolkit";
 
-import axios from "axios";
-
-const URL = "http://192.168.0.52:3001/api/v1/user/";
-
-const axiosBaseQuery = 
-	({ baseUrl }) =>
-		async ({uri, method, data, params}) => {
-			try {
-				const response = await axios({
-					url: `${baseUrl}${uri}`,
-					method,
-					data,
-					params,
-				});
-				return response.data;
-			} catch (error) {
-				return {
-					error: {
-						status: error.response?.status,
-						message: error.response?.data,
-					}
-				};
-			}
-		};
+import { 
+	fetchBaseQuery
+} from "@reduxjs/toolkit/dist/query";
 
 const initialState = {
 	auth: false,
@@ -33,7 +12,7 @@ const initialState = {
 };
 
 const loginSlice = createApi({
-	baseQuery: axiosBaseQuery({ baseUrl: URL}),
+	baseQuery: fetchBaseQuery({ baseUrl: URL}),
 	name: "login",
 	initialState,
 	reducers: {

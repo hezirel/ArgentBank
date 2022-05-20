@@ -1,22 +1,28 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import { sendCreds } from "../../redux/features/login/loginSlice";
+
+import { 
+	useSelector,
+} from "react-redux";
+
+import {
+	useGetAuthQuery,
+} from "../../redux/services/userApi";
 
 const Login = () => {
 
 	const auth = useSelector(state => state.auth);
-	const dispatch = useDispatch();
+	const [tryAuth, result] = useGetAuthQuery();
 
 	const handleSubmit = async (e) => {
 		//#:Refactor simpler form data translation
 		e.preventDefault();
 		const payload = e.target.elements;
-		dispatch(sendCreds({
+		await useGetAuthQuery({
 			email: payload.email.value,
 			password: payload.password.value
-		}));
+		});
 	};
 
 	return (auth && <Navigate replace to="/profile" />) || (
