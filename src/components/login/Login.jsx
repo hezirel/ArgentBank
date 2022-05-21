@@ -10,8 +10,8 @@ import {
 
 const Login = () => {
 
-	const [getAuthed] = useGetAuthMutation();
-	const auth = useSelector((state) => state.auth);
+	const [getAuthed, res] = useGetAuthMutation();
+	const auth = useSelector((state) => state.login.auth);
 
 	const handleSubmit = async (e) => {
 		//#:Refactor simpler form data translation
@@ -25,6 +25,9 @@ const Login = () => {
 
 	if (auth) {
 		console.log("Logged In MOTHERFUCKER");
+	}
+	if (res.error) {
+		console.log(res.error);
 	}
 
 	return (false && <Navigate replace to="/profile" />) || (
