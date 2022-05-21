@@ -24,6 +24,7 @@ const Login = () => {
 	};
 
 	return (auth && <Navigate replace to="/profile" />) || (
+
 		<main className="main bg-dark">
 			<section className="sign-in-content">
 				<i className="fa fa-user-circle sign-in-icon"></i>
