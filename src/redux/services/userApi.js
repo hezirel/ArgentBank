@@ -9,7 +9,6 @@ export const api = createApi({
 	reducerPath: "userApi",
 	baseQuery: fetchBaseQuery({ baseUrl: URL}),
 	endpoints: (builder) => ({
-
 		getAuth: builder.mutation({
 			query: (payload) => ({
 				url: "login",
@@ -17,8 +16,7 @@ export const api = createApi({
 				body: payload
 			})
 		}),
-	})
-
+	}),
 });
 
 export const {

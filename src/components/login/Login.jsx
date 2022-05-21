@@ -1,10 +1,8 @@
 import React from "react";
+
 import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-
-import { 
-	useSelector,
-} from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
 	useGetAuthMutation,
@@ -12,20 +10,24 @@ import {
 
 const Login = () => {
 
-	const auth = useSelector(state => state.auth);
-	const [loginAttempt, res] = useGetAuthMutation();
+	const [getAuthed] = useGetAuthMutation();
+	const auth = useSelector((state) => state.auth);
 
 	const handleSubmit = async (e) => {
 		//#:Refactor simpler form data translation
 		e.preventDefault();
 		const payload = e.target.elements;
-		await loginAttempt({
+		await getAuthed({
 			email: payload.email.value,
 			password: payload.password.value
 		});
 	};
 
-	return (auth && <Navigate replace to="/profile" />) || (
+	if (auth) {
+		console.log("Logged In MOTHERFUCKER");
+	}
+
+	return (false && <Navigate replace to="/profile" />) || (
 		<main className="main bg-dark">
 			<section className="sign-in-content">
 				<i className="fa fa-user-circle sign-in-icon"></i>
@@ -33,7 +35,7 @@ const Login = () => {
 				<form onSubmit={handleSubmit}>
 					<div className="input-wrapper">
 						<label htmlFor="email">Email</label>
-						<input name="email" type="text" id="email" defaultValue="tony@stark.com" required/>
+						<input name="email" type="email" id="email" defaultValue="tony@stark.com" required/>
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label>
@@ -45,7 +47,7 @@ const Login = () => {
 									Remember me
 						</label>
 					</div>
-					<button className="sign-in-button" type="submit" >Sign In</button>
+					<button className="sign-in-button" type="submit" >Sign In{auth && "loggedin"}</button>
 				</form>
 			</section>
 		</main>
