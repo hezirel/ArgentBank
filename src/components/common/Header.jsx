@@ -1,16 +1,19 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import actions from "../../redux/store/actions";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import {
+	logout,
+} from "../../redux/features/login/loginSlice";
 
 const Header = () => {
 
-	const auth = useSelector(state => state.auth);
+	const auth = useSelector(state => state.login.auth);
 	const dispatch = useDispatch();
-	const nav = useNavigate();
+
 	const handleLogout = () => {
-		dispatch({ type: actions.LOGOUT });
-		nav("/", { replace: true });
+		dispatch(logout());
 	};
 
 	return (

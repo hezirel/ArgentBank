@@ -39,10 +39,6 @@ export const api = createApi({
 	}),
 });
 
-export const {
-	getLogin,
-} = api.endpoints;
-
 export const { 
 	useGetLoginMutation,
 	useGetProfileQuery,

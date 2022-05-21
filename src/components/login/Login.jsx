@@ -1,8 +1,6 @@
 import React from "react";
 
-import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { useSelector } from "react-redux";
 
 import {
 	useGetLoginMutation,
@@ -11,7 +9,6 @@ import {
 const Login = () => {
 
 	const [getAuthed, res] = useGetLoginMutation();
-	const auth = useSelector((state) => state.login.auth);
 
 	const handleSubmit = async (e) => {
 		//#:Refactor simpler form data translation
@@ -23,7 +20,7 @@ const Login = () => {
 		});
 	};
 
-	return (auth && <Navigate replace to="/profile" />) || (
+	return (
 
 		<main className="main bg-dark">
 			<section className="sign-in-content">

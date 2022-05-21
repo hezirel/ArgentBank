@@ -23,8 +23,7 @@ import Home from "./components/common/Home";
 
 const App = () => {
 
-	const auth = useSelector(state => state.auth);
-	auth ? true:false;
+	const auth = useSelector(state => state.login.auth);
 
 	return (
 		<>
@@ -33,8 +32,8 @@ const App = () => {
 					<Header />
 					<Routes>
 						<Route index path="/" element={<Home />} />
-						<Route path="login" element={<Login />} />
-						<Route path="profile" element={<Profile />} />
+						<Route path="/login" element={auth ? <Navigate replace to="/profile"/> : <Login />} />
+						<Route path="/profile" element={(!auth) ? <Navigate replace to="/login"/> : <Profile />} />
 						<Route path="*" element={<Navigate replace to="/" />} />
 					</Routes>
 				</Provider>
