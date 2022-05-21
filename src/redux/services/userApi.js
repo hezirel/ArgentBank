@@ -16,7 +16,6 @@ export const api = createApi({
 		prepareHeaders: (headers) => {
 			const token = RootState.getState().login?.token;
 			if (token) {
-				console.log(token);
 				headers.set("Authorization", `Bearer ${token}`);
 				return headers;
 			}
@@ -24,20 +23,27 @@ export const api = createApi({
 		}
 	}),
 	endpoints: (builder) => ({
-		getAuth: builder.mutation({
+		getLogin: builder.mutation({
 			query: (payload) => ({
 				url: "login",
 				method: "POST",
 				body: payload
 			})
 		}),
+		getProfile: builder.query({
+			query: () => ({
+				url: "profile",
+				method: "POST"
+			})
+		})
 	}),
 });
 
 export const {
-	getAuth,
+	getLogin,
 } = api.endpoints;
 
 export const { 
-	useGetAuthMutation,
+	useGetLoginMutation,
+	useGetProfileQuery,
 } = api;

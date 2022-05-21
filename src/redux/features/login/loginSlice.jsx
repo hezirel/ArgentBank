@@ -8,7 +8,8 @@ import {
 
 const initialState = {
 	auth: false,
-	token: false
+	token: false,
+	userInfos: false,
 };
 
 const loginSlice = createSlice({
@@ -18,12 +19,18 @@ const loginSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addMatcher(
-			api.endpoints.getAuth.matchFulfilled,
+			api.endpoints.getLogin.matchFulfilled,
 			(state, action) => {
 				state.auth = true;
 				state.token = action.payload.body.token;
 			}
-		);
+		)
+			.addMatcher(
+				api.endpoints.getProfile.matchFulfilled,
+				(state, action) => {
+					state.userInfos = action.payload.body;
+				}
+			);
 	}
 });
 

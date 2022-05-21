@@ -5,12 +5,12 @@ import { PropTypes } from "prop-types";
 import { useSelector } from "react-redux";
 
 import {
-	useGetAuthMutation,
+	useGetLoginMutation,
 } from "../../redux/services/userApi";
 
 const Login = () => {
 
-	const [getAuthed, res] = useGetAuthMutation();
+	const [getAuthed, res] = useGetLoginMutation();
 	const auth = useSelector((state) => state.login.auth);
 
 	const handleSubmit = async (e) => {
@@ -23,14 +23,7 @@ const Login = () => {
 		});
 	};
 
-	if (auth) {
-		console.log("Logged In MOTHERFUCKER");
-	}
-	if (res.error) {
-		console.log(res.error);
-	}
-
-	return (false && <Navigate replace to="/profile" />) || (
+	return (auth && <Navigate replace to="/profile" />) || (
 		<main className="main bg-dark">
 			<section className="sign-in-content">
 				<i className="fa fa-user-circle sign-in-icon"></i>
@@ -43,6 +36,7 @@ const Login = () => {
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label>
 						<input name="password" type="password" id="password" defaultValue="password123" required/>
+						<span className="form-error">{res.isError && res.error.data.message}</span>
 					</div>
 					<div className="input-remember">
 						<input type="checkbox" name="cookie" id="remember-me" />
@@ -50,7 +44,7 @@ const Login = () => {
 									Remember me
 						</label>
 					</div>
-					<button className="sign-in-button" type="submit" >Sign In{auth && "loggedin"}</button>
+					<button className="sign-in-button" type="submit" >Sign In</button>
 				</form>
 			</section>
 		</main>

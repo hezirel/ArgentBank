@@ -1,33 +1,25 @@
-import React, { useEffect } from "react";
+import {
+	React,
+} from "react";
+
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+
+import { useGetProfileQuery } from "../../redux/services/userApi";
 
 const Profile = () => {
 
-	const token = useSelector(state => state.token);
-	const [user, setUser] = React.useState({
-	});
+	const {data, isError} = useGetProfileQuery();
 
-	const profileRequest = async (jwt) => {
-		const res = await fetch("http://192.168.0.52:3001/api/v1/user/profile", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${jwt}`
-			},
-		});
-		const data = await res.json();
-		setUser(data.body);
-	};
-
-	useEffect(() => {
-		profileRequest(token);
-	}, [token]);
+	if (isError) {
+		console.error(isError);
+	}
 
 	return (
 		<main className="main bg-dark">
 			<div className="header">
-				<h1>Welcome back<br />{`${user?.firstName} ${user?.lastName}`}!</h1>
+				<h1>Welcome back<br />{
+					data && `${data.body.firstName} ${data.body.lastName}`
+				}!</h1>
 				<button className="edit-button">Edit Name</button>
 			</div>
 			<h2 className="sr-only">Accounts</h2>
