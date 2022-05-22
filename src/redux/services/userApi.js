@@ -22,6 +22,7 @@ export const api = createApi({
 			return headers;
 		}
 	}),
+	tagTypes: ["Profile"],
 	endpoints: (builder) => ({
 		getLogin: builder.mutation({
 			query: (payload) => ({
@@ -34,12 +35,22 @@ export const api = createApi({
 			query: () => ({
 				url: "profile",
 				method: "POST"
-			})
-		})
+			}),
+			providesTags: ["Profile"]
+		}),
+		updateProfile: builder.mutation({
+			query: (payload) => ({
+				url: "profile",
+				method: "PUT",
+				body: payload
+			}),
+			invalidatesTags: ["Profile"],
+		}),
 	}),
 });
 
 export const { 
 	useGetLoginMutation,
 	useGetProfileQuery,
+	useUpdateProfileMutation,
 } = api;

@@ -263,6 +263,39 @@ body {
   padding: 10px;
 }
 
+.div-edit-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 25%;
+  justify-self: center;
+}
+
+.edit-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.edit-form div {
+  gap: .8rem;
+}
+
+.edit-form button {
+  max-width: fit-content;
+}
+
+#edit-form-first {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: end;
+}
+
+#edit-form-last {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: start;
+}
+
 .header {
   color: #fff;
   margin-bottom: 2rem;

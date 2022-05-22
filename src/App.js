@@ -31,9 +31,9 @@ const App = () => {
 				<Provider store={store}>
 					<Header />
 					<Routes>
-						<Route index path="/" element={<Home />} />
-						<Route path="/login" element={auth ? <Navigate replace to="/profile"/> : <Login />} />
-						<Route path="/profile" element={(!auth) ? <Navigate replace to="/login"/> : <Profile />} />
+						<Route path="/" element={<Home />} />
+						<Route path="/login" element={auth ? <Navigate to="/profile"/> : <Login />} />
+						<Route path="/profile" element={(!auth) ? <Navigate to="/login"/> : <Profile />} />
 						<Route path="*" element={<Navigate replace to="/" />} />
 					</Routes>
 				</Provider>

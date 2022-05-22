@@ -1,14 +1,46 @@
 import {
 	React,
+	useState,
 } from "react";
 
 import PropTypes from "prop-types";
 
-import { useGetProfileQuery } from "../../redux/services/userApi";
+import { 
+	useGetProfileQuery,
+	useUpdateProfileMutation,
+} from "../../redux/services/userApi";
 
 const Profile = () => {
 
 	const {data, isError} = useGetProfileQuery();
+	const [updateProfile] = useUpdateProfileMutation();
+	const [isEditing, setIsEditing] = useState(false);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setIsEditing(false);
+		await updateProfile({
+			firstName: e.target.firstName.value,
+			lastName: e.target.lastName.value,
+		});
+	};
+
+	const editForm = () => {
+		return (
+			<div className="div-edit-form">
+				<form className="edit-form" onSubmit={handleSubmit}>
+					<div id="edit-form-first">
+						<input name="firstName" type="text" placeholder="First Name" required/>
+						<button className="edit-button" type="submit">Save</button>
+					</div>
+					<div id="edit-form-last">
+						<input name="lastName" type="text" placeholder="Last Name" required/>
+						<button className="edit-button" type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+					</div>
+				</form>
+			</div>
+		);
+	};
 
 	if (isError) {
 		console.error(isError);
@@ -20,7 +52,11 @@ const Profile = () => {
 				<h1>Welcome back<br />{
 					data && `${data.body.firstName} ${data.body.lastName}`
 				}!</h1>
-				<button className="edit-button">Edit Name</button>
+				{(isEditing && editForm()) || (
+					<button className="edit-button" onClick={() => {
+						setIsEditing(!isEditing);
+					}}>Edit Name</button>
+				)}
 			</div>
 			<h2 className="sr-only">Accounts</h2>
 			<section className="account">
