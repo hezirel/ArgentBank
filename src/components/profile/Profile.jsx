@@ -32,12 +32,12 @@ const Profile = () => {
 			<div className="div-edit-form">
 				<form className="edit-form" onSubmit={handleSubmit}>
 					<div id="edit-form-first">
-						<input name="firstName" type="text" placeholder="First Name" required/>
-						<button className="edit-button" type="submit">Save</button>
+						<input tabIndex="1" name="firstName" type="text" placeholder="First Name" required/>
+						<button tabIndex="2" className="edit-button" type="submit">Save</button>
 					</div>
 					<div id="edit-form-last">
-						<input name="lastName" type="text" placeholder="Last Name" required/>
-						<button className="edit-button" type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+						<input name="lastName" tabIndex="1" type="text" placeholder="Last Name" required/>
+						<button tabIndex="2" className="edit-button" type="button" onClick={() => setIsEditing(false)}>Cancel</button>
 					</div>
 				</form>
 			</div>
