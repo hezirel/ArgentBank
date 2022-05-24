@@ -7,7 +7,7 @@ import {
 	store as RootState,
 } from "../store/store";
 
-const URL = "http://192.168.0.52:3001/api/v1/user/";
+import URL from "./BACKEND_URL";
 
 export const api = createApi({
 	reducerPath: "userApi",
