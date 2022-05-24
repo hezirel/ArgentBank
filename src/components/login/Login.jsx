@@ -1,10 +1,10 @@
 import {
 	React,
-	useEffect,
-	useState,
 } from "react";
 
-import { PropTypes } from "prop-types";
+import { 
+	PropTypes,
+} from "prop-types";
 
 import {
 	useGetLoginMutation,
@@ -14,27 +14,8 @@ const Login = () => {
 
 	const [getAuthed, res] = useGetLoginMutation();
 
-	const [userErr, setUserErr] = useState(false);
-	const [passErr, setPassErr] = useState(false);
-	const [serverErr, setServerErr] = useState(false);
-
-	useEffect(() => {
-
-		setPassErr(false);
-		setUserErr(false);
-		setServerErr(false);
-
-		if (res.isError && res.error?.status === 400) {
-
-			res.error?.data?.message?.includes("User") ?
-				setUserErr(true) : setPassErr(true);
-
-		} else if (res.isError && res.error.status === "FETCH_ERROR") {
-
-			setServerErr(true);
-
-		}
-	}, [res]);
+	const errCheck = (errorType) => res.isError && res.error.status === errorType;
+	const fieldCheck = (field) => errCheck(400) && res.error.data.message.includes(field);
 
 	const handleSubmit = async (e) => {
 		//#:Refactor simpler form data translation
@@ -59,9 +40,10 @@ const Login = () => {
 							type="email" 
 							id="email" 
 							defaultValue="tony@stark.com" 
-							className={userErr ? "input-error" : ""}
+							className={fieldCheck("User") ? "input-error" : ""}
 							required/>
-						{userErr && <span className="error-message">{res.error.data.message}</span>}
+						{fieldCheck("User") &&
+							<span className="error-message">{res.error.data.message}</span>}
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label>
@@ -69,17 +51,19 @@ const Login = () => {
 							type="password" 
 							id="password" 
 							defaultValue="password123" 
-							className={passErr ? "input-error" : ""}
+							className={fieldCheck("Password") ? "input-error" : ""}
 							required/>
-						{passErr && <span className="error-message">{res.error.data.message}</span>}
+						{fieldCheck("Password") &&
+								<span className="error-message">{res.error.data.message}</span>}
 					</div>
 					<div className="input-remember">
 						<input type="checkbox" name="cookie" id="remember-me" />
 						<label htmlFor="remember-me">
 									Remember me
 						</label>
-						{serverErr && <span className="error-message">{res.error.error}</span>}
 					</div>
+					{errCheck("FETCH_ERROR") &&
+							<span className="error-message">Cannot reach server</span>}
 					<button className="sign-in-button" type="submit" >Sign In</button>
 				</form>
 			</section>
