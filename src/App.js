@@ -23,7 +23,7 @@ import Home from "./components/common/Home";
 
 const App = () => {
 
-	const auth = useSelector(state => state.login.auth);
+	const auth = useSelector(state => state.login.token);
 
 	return (
 		<>

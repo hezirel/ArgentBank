@@ -7,9 +7,9 @@ import {
 } from "../../services/userApi";
 
 const initialState = {
-	auth: false,
 	token: false,
 	userInfos: false,
+	err: false
 };
 
 const loginSlice = createSlice({
@@ -17,7 +17,6 @@ const loginSlice = createSlice({
 	initialState,
 	reducers: {
 		logout: (state) => {
-			state.auth = false;
 			state.token = false;
 			state.userInfos = false;
 			return state;
@@ -27,10 +26,8 @@ const loginSlice = createSlice({
 		builder.addMatcher(
 			api.endpoints.getLogin.matchFulfilled,
 			(state, action) => {
-				state.auth = true;
 				state.token = action.payload.body.token;
-			}
-		)
+			})
 			.addMatcher(
 				api.endpoints.getProfile.matchFulfilled,
 				(state, action) => {

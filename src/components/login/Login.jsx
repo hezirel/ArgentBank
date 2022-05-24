@@ -1,4 +1,8 @@
-import React from "react";
+import {
+	React,
+	useEffect,
+	useState,
+} from "react";
 
 import { PropTypes } from "prop-types";
 
@@ -9,6 +13,28 @@ import {
 const Login = () => {
 
 	const [getAuthed, res] = useGetLoginMutation();
+
+	const [userErr, setUserErr] = useState(false);
+	const [passErr, setPassErr] = useState(false);
+	const [serverErr, setServerErr] = useState(false);
+
+	useEffect(() => {
+
+		setPassErr(false);
+		setUserErr(false);
+		setServerErr(false);
+
+		if (res.isError && res.error?.status === 400) {
+
+			res.error?.data?.message?.includes("User") ?
+				setUserErr(true) : setPassErr(true);
+
+		} else if (res.isError && res.error.status === "FETCH_ERROR") {
+
+			setServerErr(true);
+
+		}
+	}, [res]);
 
 	const handleSubmit = async (e) => {
 		//#:Refactor simpler form data translation
@@ -29,18 +55,30 @@ const Login = () => {
 				<form onSubmit={handleSubmit}>
 					<div className="input-wrapper">
 						<label htmlFor="email">Email</label>
-						<input name="email" type="email" id="email" defaultValue="tony@stark.com" required/>
+						<input name="email" 
+							type="email" 
+							id="email" 
+							defaultValue="tony@stark.com" 
+							className={userErr ? "input-error" : ""}
+							required/>
+						{userErr && <span className="error-message">{res.error.data.message}</span>}
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label>
-						<input name="password" type="password" id="password" defaultValue="password123" required/>
-						<span className="form-error">{res.isError && res.error.data.message}</span>
+						<input name="password" 
+							type="password" 
+							id="password" 
+							defaultValue="password123" 
+							className={passErr ? "input-error" : ""}
+							required/>
+						{passErr && <span className="error-message">{res.error.data.message}</span>}
 					</div>
 					<div className="input-remember">
 						<input type="checkbox" name="cookie" id="remember-me" />
 						<label htmlFor="remember-me">
 									Remember me
 						</label>
+						{serverErr && <span className="error-message">{res.error.error}</span>}
 					</div>
 					<button className="sign-in-button" type="submit" >Sign In</button>
 				</form>
