@@ -18,7 +18,6 @@ const Login = () => {
 	const fieldCheck = (field) => errCheck(400) && res.error.data.message.includes(field);
 
 	const handleSubmit = async (e) => {
-		//#:Refactor simpler form data translation
 		e.preventDefault();
 		const payload = e.target.elements;
 		await getAuthed({

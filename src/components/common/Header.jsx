@@ -9,7 +9,7 @@ import {
 
 const Header = () => {
 
-	const auth = useSelector(state => state.login.auth);
+	const auth = useSelector(state => state.login.token);
 	const dispatch = useDispatch();
 
 	const handleLogout = () => {
