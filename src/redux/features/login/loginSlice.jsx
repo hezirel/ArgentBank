@@ -9,7 +9,6 @@ import {
 const initialState = {
 	token: false,
 	userInfos: false,
-	err: false
 };
 
 const loginSlice = createSlice({

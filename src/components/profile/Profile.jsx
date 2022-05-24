@@ -12,9 +12,11 @@ import {
 
 const Profile = () => {
 
-	const {data, isError} = useGetProfileQuery();
+	const {data, isError, error} = useGetProfileQuery();
 	const [updateProfile] = useUpdateProfileMutation();
 	const [isEditing, setIsEditing] = useState(false);
+
+	const errCheck = (errorType) => isError && error.status === errorType;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -42,16 +44,18 @@ const Profile = () => {
 		);
 	};
 
-	if (isError) {
-		console.error(isError);
-	}
-
 	return (
 		<main className="main bg-dark">
 			<div className="header">
 				<h1>Welcome back<br />{
 					data && `${data.body.firstName} ${data.body.lastName}`
 				}!</h1>
+				{isError &&
+					(errCheck(400) ?
+						<div className="error-message">{error.data.message}</div> :
+						<div className="error-message">{error.error}</div>
+					)
+				}
 				{(isEditing && editForm()) || (
 					<button className="edit-button" onClick={() => {
 						setIsEditing(!isEditing);
