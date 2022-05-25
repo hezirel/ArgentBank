@@ -1,0 +1,132 @@
+swagger: '2.0'
+info:
+  title: Argent Bank API V2 - Users Transactions
+  description: Endpoints specs proposal for V2 features
+  version: '2.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v2
+schemes:
+  - http
+paths:
+  /user/accounts/{accountId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - TxList
+      summary: Transactions list
+      description: Fetch current month transactions list for {accountId}
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Fetched transactions list successfully
+          schema:
+            $ref: '#/definitions/TxList'
+        '400':
+          description: Client request error
+        '401':
+          description: Invalid authentication
+        '418':
+          description: Server can't brew coffee because it's a teapot
+        '500':
+          description: Internal Server Error
+  /user/accounts/{accountId}/{txHash}:
+    get:
+      tags:
+        - TxItem
+      summary: Transaction Item Details
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Retrieved transaction details successfully
+          schema:
+            $ref: '#/definitions/TxItem'
+        '400':
+          description: Invalid Request
+        '401':
+          description: Invalid authentication
+        '404':
+          description: Transaction hash not found on account
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - TxItem
+      summary: Transaction Item Details
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: Tx Details Payload
+          required: true
+          schema:
+            $ref: '#/definitions/TxItem'
+      responses:
+        '200':
+          description: Details updated successfully
+        '401':
+          description: Invalid authentication
+        '404':
+          description: Transaction hash has not been found on account
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - TxItem
+      summary: Transaction Item Delete
+      description: DELETE items details from server
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      responses:
+        '200':
+          description: Delete successfully executed
+        '500':
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  TxList:
+    type: object
+    properties:
+      categories:
+        type: array
+        description: User list of transactions categories
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/TxItem'
+  TxItem:
+    type: object
+    properties:
+      hash:
+        type: string
+        description: Transaction Item Hash / ID
+      notes:
+        type: string
+        description: User's transaction item details notes
+      category:
+        type: string
+        description: Transaction item Category
