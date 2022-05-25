@@ -3,8 +3,6 @@ import {
 	useState,
 } from "react";
 
-import PropTypes from "prop-types";
-
 import { 
 	useGetProfileQuery,
 	useUpdateProfileMutation,
@@ -96,10 +94,6 @@ const Profile = () => {
 		</main>
 
 	);
-};
-
-Profile.propTypes = {
-	data: PropTypes.any
 };
 
 export default Profile;
