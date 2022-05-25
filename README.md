@@ -23,6 +23,10 @@ JWT Tokens, React, Redux & the RTK Query Tool
 
 The backend url must be included in this repo [src/redux/services/BACKEND_URL.js](src/redux/services/BACKEND_URL.js)
 
+## V2 API Endpoints proposal
+
+A endpoints spec proposal can be found in openAPI 3.0.0 format in [the repo](swagger.yml)
+
 ## Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
