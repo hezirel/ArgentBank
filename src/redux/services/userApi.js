@@ -3,9 +3,7 @@ import {
 	fetchBaseQuery
 } from "@reduxjs/toolkit/query/react";
 
-import {
-	store as RootState,
-} from "../store/store";
+import RootState from "../store/store";
 
 import URL from "./BACKEND_URL";
 
@@ -54,3 +52,5 @@ export const {
 	useGetProfileQuery,
 	useUpdateProfileMutation,
 } = api;
+
+export default api;

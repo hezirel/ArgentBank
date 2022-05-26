@@ -7,12 +7,7 @@ import {
 	Navigate
 } from "react-router-dom";
 
-import {
-	Provider,
-	useSelector
-} from "react-redux";
-
-import { store } from "./redux/store/store";
+import { useSelector } from "react-redux";
 
 import Login from "./components/login/Login";
 import Profile from "./components/profile/Profile";
@@ -28,15 +23,13 @@ const App = () => {
 	return (
 		<>
 			<HashRouter>
-				<Provider store={store}>
-					<Header />
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/login" element={auth ? <Navigate to="/profile"/> : <Login />} />
-						<Route path="/profile" element={(!auth) ? <Navigate to="/login"/> : <Profile />} />
-						<Route path="*" element={<Navigate replace to="/" />} />
-					</Routes>
-				</Provider>
+				<Header />
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/login" element={auth ? <Navigate to="/profile"/> : <Login />} />
+					<Route path="/profile" element={(!auth) ? <Navigate to="/login"/> : <Profile />} />
+					<Route path="*" element={<Navigate replace to="/" />} />
+				</Routes>
 				<Footer />
 			</HashRouter>
 		</>

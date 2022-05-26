@@ -2,9 +2,7 @@ import {
 	createSlice
 } from "@reduxjs/toolkit";
 
-import {
-	api
-} from "../../services/userApi";
+import api from "../../services/userApi";
 
 const initialState = {
 	token: false,
@@ -15,11 +13,7 @@ const loginSlice = createSlice({
 	name: "login",
 	initialState,
 	reducers: {
-		logout: (state) => {
-			state.token = false;
-			state.userInfos = false;
-			return state;
-		}
+		logout: () => initialState
 	},
 	extraReducers: (builder) => {
 		builder.addMatcher(
@@ -36,8 +30,8 @@ const loginSlice = createSlice({
 	}
 });
 
-export default loginSlice;
-
 export const {
 	logout
 } = loginSlice.actions;
+
+export default loginSlice.reducer;
