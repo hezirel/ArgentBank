@@ -2,10 +2,6 @@ import {
 	React,
 } from "react";
 
-import { 
-	PropTypes,
-} from "prop-types";
-
 import {
 	useGetLoginMutation,
 } from "../../redux/services/userApi";
@@ -68,10 +64,6 @@ const Login = () => {
 			</section>
 		</main>
 	);
-};
-
-Login.propTypes = {
-	setToken: PropTypes.func
 };
 
 export default Login;
